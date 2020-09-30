@@ -32,7 +32,7 @@ exports.getAllOrderByUser = (req, res) => {
 exports.getAllOrder = (req, res) => {
 	Order.find({})
 		.populate('purchases.product', '_id name sellingPrice')
-		.populate('user', '_id name')
+		.populate('user', '_id name email')
 		.exec((error, result) => {
 			if (error) {
 				return res.status(400).json({ error: error });
