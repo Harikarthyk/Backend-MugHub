@@ -30,7 +30,13 @@ exports.getAllOrderByUser = (req, res) => {
 };
 
 exports.getAllOrder = (req, res) => {
-	Order.find()
-		.then((res) => res.status(200).json({ order: order }))
-		.catch((error) => res.status(400).json({ error: error }));
+	Order.find({})
+		.populate('purchases.product', '_id name sellingPrice')
+		.populate('user', '_id name')
+		.exec((error, result) => {
+			if (error) {
+				return res.status(400).json({ error: error });
+			}
+			return res.status(200).json({ order: result });
+		});
 };

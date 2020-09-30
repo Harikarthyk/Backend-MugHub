@@ -33,7 +33,7 @@ router.post(
 
 //Delete route to delete product
 router.delete(
-	'/delete/product/:productId',
+	'/delete/product/:productId/:userId',
 	isSignedIn,
 	isAuthenticated,
 	isAdmin,
