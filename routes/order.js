@@ -4,11 +4,15 @@ const {
 	createOrder,
 	getAllOrderByUser,
 	getAllOrder,
+	updateStatusForUser,
+	getOrdeById,
 } = require('../controllers/order');
 const { getUserById } = require('../controllers/user');
 const router = express.Router();
 
 router.param('userId', getUserById);
+
+router.param('orderId', getOrdeById);
 
 router.post('/create/order/:userId', isSignedIn, isAuthenticated, createOrder);
 
@@ -20,6 +24,14 @@ router.get(
 	isAuthenticated,
 	isAdmin,
 	getAllOrder,
+);
+
+router.put(
+	'/update/orders/:orderId/:userId',
+	isSignedIn,
+	isAuthenticated,
+	isAdmin,
+	updateStatusForUser,
 );
 
 module.exports = router;

@@ -23,7 +23,4 @@ router.put('/user/:userId', isSignedIn, isAuthenticated, updateUser);
 //Get Route for all Order details
 router.get('/orders/user/:userId', isSignedIn, isAuthenticated, getUserOrder);
 
-//Put Route for pushing product in order list
-router.put('/orders/user/:userId', pushOrderInPurchaseList);
-
 module.exports = routes;

@@ -49,34 +49,3 @@ exports.getUserOrder = (req, res) => {
 			});
 		});
 };
-
-exports.pushOrderInPurchaseList = (req, res) => {
-	let purchases = [];
-	req.body.order.products.forEach((product) => {
-		purchases.push({
-			_id: product._id,
-			name: product.name,
-			description: product.description,
-			price: req.body.order.price,
-			count: req.body.order.count,
-		});
-	});
-	Order.findOneAndUpdate(
-		{ user: req.profile._id },
-		{
-			$set: { amount: req.body.amount, address: req.body.address },
-			$push: { purchases: purchases },
-		},
-		(error, result) => {
-			if (error) {
-				return res.status(400).json({
-					error: 'Unable to update the purchase list',
-				});
-			}
-
-			return res.status(200).json({
-				message: 'Product is added to the queue , Thanks for Shopping ',
-			});
-		},
-	);
-};
